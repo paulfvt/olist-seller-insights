@@ -1,0 +1,13 @@
+# Dépendances directes, versions figées. Complété au fil des étapes.
+# Installation : pip install -r requirements.txt && pip install -e .
+
+# Données
+duckdb==2.0.0
+pandas==3.1.1
+numpy==2.5.5
+
+# Configuration
+python-dotenv==1.2.4
+
+# Tests
+pytest==9.2.0

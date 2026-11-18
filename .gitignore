@@ -1,0 +1,22 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- Secrets : les vraies clés API ne sont JAMAIS commitées ---
+.env
+.env.*
+!.env.example
+
+# --- Données : CSV bruts, base DuckDB, caches (traduction, LLM) ---
+data/
+*.duckdb
+*.duckdb.wal
+
+# --- Fichiers parasites (copie Windows -> WSL, éditeurs) ---
+*:Zone.Identifier
+.DS_Store
+Thumbs.db
