@@ -358,6 +358,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--model", default="openai/gpt-oss-120b", help="configuration à juger à la main")
     parser.add_argument("--prompt-version", default=None, help="par défaut : celle de explain.py")
     parser.add_argument("--force", action="store_true", help="écrase les grilles CSV même si elles sont remplies")
+    parser.add_argument("--grader", default="non précisé",
+                        help="qui a rempli les grilles (écrit dans le rapport, par transparence)")
     args = parser.parse_args(argv)
 
     settings = load_settings()
@@ -367,6 +369,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.summarize:
         scores = {
+            "grader": args.grader,
             "translation": summarize_translation_grades(_read_csv(sample_path)) if sample_path.exists() else None,
             "llm_causes": summarize_cause_grades(_read_csv(causes_path)) if causes_path.exists() else None,
         }

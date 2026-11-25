@@ -7,7 +7,7 @@
     "valid_answers_rechecked": 10,
     "still_valid_on_recheck": 10,
     "nothing_to_report": 1,
-    "avg_causes": 3.0,
+    "avg_causes": 3.22,
     "quotes_verified_pct": 100.0,
     "kpis_verified_pct": 100.0
   },
@@ -31,10 +31,10 @@
       "schema": 2
     },
     "valid_answers_rechecked": 4,
-    "still_valid_on_recheck": 4,
+    "still_valid_on_recheck": 3,
     "nothing_to_report": 0,
     "avg_causes": 3.0,
-    "quotes_verified_pct": 100.0,
+    "quotes_verified_pct": 91.7,
     "kpis_verified_pct": 100.0
   },
   "groq/openai/gpt-oss-20b/v3": {
@@ -58,10 +58,10 @@
     "avg_attempts": 1.5,
     "issues_of_invalid_answers": {},
     "valid_answers_rechecked": 2,
-    "still_valid_on_recheck": 2,
+    "still_valid_on_recheck": 0,
     "nothing_to_report": 0,
     "avg_causes": 3.0,
-    "quotes_verified_pct": 100.0,
+    "quotes_verified_pct": 85.7,
     "kpis_verified_pct": 100.0
   }
 }

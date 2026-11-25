@@ -1,0 +1,25 @@
+{
+  "grader": "Claude (LLM), justifications en français dans les grilles ; pas encore relu par un humain",
+  "translation": {
+    "n_graded": 30,
+    "adequacy_mean_0_2": 1.73,
+    "meaning_preserved_pct": 76.7,
+    "meaning_lost_pct": 3.3,
+    "fluency_mean_0_2": 1.33,
+    "adequacy_mean_by_review_score": {
+      "1": 1.83,
+      "2": 1.5,
+      "3": 1.67,
+      "4": 1.67,
+      "5": 2.0
+    }
+  },
+  "llm_causes": {
+    "supported_by_reviews_pct": 93.1,
+    "supported_by_reviews_n": 29,
+    "is_cause_not_symptom_pct": 62.1,
+    "is_cause_not_symptom_n": 29,
+    "actionable_pct": 62.1,
+    "actionable_n": 29
+  }
+}

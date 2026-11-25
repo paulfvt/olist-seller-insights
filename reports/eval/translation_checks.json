@@ -5,105 +5,105 @@
   "n_missing": 0,
   "flags": {
     "loop": {
-      "count": 1,
+      "count": 2,
       "rate_pct": 0.0,
       "examples": [
         {
           "review_id": "ee59823404cbc10fd1e06c1de4e4150e",
           "pt": "Perfeitamente embalado. Sem amassou.",
           "en": "Perfectly packed. No, no, no. No, you didn't."
+        },
+        {
+          "review_id": "def95f809c279bd4123490e0ae286b61",
+          "pt": "Veio faltando uma peça. Tampinha de fechar o local que ficam as pilhas.",
+          "en": "You've been missing a play. No, no, no. No, don't shut down the place where the batteries are."
         }
       ]
     },
     "omission": {
-      "count": 2,
+      "count": 1,
       "rate_pct": 0.0,
       "examples": [
         {
-          "review_id": "0ba1798954dc5c26810ef09daedc002c",
-          "pt": "MUITO OBRIGADO PELA SEMPRE GENTIL ATENÇÃO. PARABÉNS PELO EXCELENTE SERVIÇO PRESTADO À SOCIEDADE.JÁ SABIA DA EFICIÊNCIA E EFICÁCIA DO SITE, MAS NUNCA HAVIA UTILIZADO. ESTOU SATISFEITÍSSIMO.FELICIDADES",
-          "en": "A lot of attention for all the time. FOR THE EXCELLENT SERVICE PROVIDED FOR BY THE SOCIETY. I'M SATISFIED. HAPPY"
-        },
-        {
-          "review_id": "43907ef31db6241a26dc3d4f0d8ce445",
-          "pt": "ACHO QUE DEVERIA ACOMPANHAR UM MANUEL E CADERNO DE RECEITAS EM PORTUGUES,PORQUE AGENTE RECEBE O PRODUTO E TEM QUE PESQUISAR OU PEDIR RECEITAS DE CREPE.\nO MANUAL NÃO AJUDA NO CASO DE ALGUMA DIFICULDAD",
-          "en": "IN THE CHAIR: MR MARTIN Vice-President MANUAL DOES NOT HELP IN THE CASE OF SOME DIFFICULTY"
+          "review_id": "137e1816895e26d95fb3467e6bd322cf",
+          "pt": "sempre compro e nao tenho reclamações\nchato tem q avalir em 160 caracteres heim?????????????????????????????????????????????????????????????????????????????????????????????????????????????????????",
+          "en": "I always buy and I don't have complaints. o??? ???? ??? o? ?? ??? ?? ?? ?? o? ? ??? ? ? ?? ?? ?? ? ?? ? ?? ?"
         }
       ]
     },
     "long": {
-      "count": 12,
+      "count": 11,
       "rate_pct": 0.03,
       "examples": [
+        {
+          "review_id": "61eb5611d2dd6bf65c58d21330ec4ed8",
+          "pt": "O produto foi entregue no prazo, até agora tá bom ... .............................já mandei instalar e funciona muito bem..............................................................................",
+          "en": "The product has been delivered on time, so far it is good ... .............................I have already installed and works very well.........................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................."
+        },
+        {
+          "review_id": "868db855182033be240be78fd67e432c",
+          "pt": "Boa compra . ............................................................................................",
+          "en": "Good purchase ...................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................................."
+        },
+        {
+          "review_id": "905d446fdb42fde31d9294d6f1c94709",
+          "pt": "bommmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+          "en": "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        },
+        {
+          "review_id": "3dbc4c3fc7544be24079d3a735f94d0c",
+          "pt": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+          "en": "Xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        },
         {
           "review_id": "24eaeb02363f796f3eb2cd62f30ee8e5",
           "pt": "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
           "en": "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
-        },
-        {
-          "review_id": "c21b08810349606fcf18eeb21c365545",
-          "pt": "Ótimo msnsksknsjsjsjsnsjsjsjsnsjsjsndnndjxjxndndjsjdjdjdjdjjdjdjdjsjsjdjdjdjdjdjsjdjdjjdjdjdjdjdjsjsjdjsksjsjjssnjsjsjsjsjsjsjsjjskskskskskskkskskskskskskskskskksksksnwksksksksnnsjsjsjsjsjnsnsjsjsjsns",
-          "en": "Great msnsksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksks"
-        },
-        {
-          "review_id": "436e9da2a75eb6d50db3cac5037a81a6",
-          "pt": "O produto não foi entregue completamente faltou o principal mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
-          "en": "The product was not delivered completely missing the main mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
-        },
-        {
-          "review_id": "62a42ef935ddf6718e753eea6308eae7",
-          "pt": "Adoreiiiiiiiiiiiiiiiii. Tudo perfeito.",
-          "en": "I'm in love with you, I'm in love with you, I'm in love with you, I'm in love with you, I'm in love with you, I'm in love with you."
-        },
-        {
-          "review_id": "6d81726f30f903095cdc61098cbb1997",
-          "pt": "PARAMBELISO TODA EQUIPE PELO BOM TRABALHO, E PONTUDALIDADE.\nMEUS PARABÉNS, COM O MEU ABRAÇO A TODOS.\nJOSÉ CARNEIRO BH MG.",
-          "en": "I've got all the equipment for good work, and pontudality, and I've got all the equipment I need, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and"
         }
       ]
     },
     "pt_leftover": {
-      "count": 47,
-      "rate_pct": 0.12,
+      "count": 30,
+      "rate_pct": 0.07,
       "examples": [
         {
-          "review_id": "848d5324b9cb5aa4cc0f6f357863c9eb",
-          "pt": "Otimo deu tudo certinho\nnota 10.",
-          "en": "Otimo gave all the right grade 10.",
+          "review_id": "a7fcf7816630b10594b27ad1e0dafa2a",
+          "pt": "Comprei um jogo de mantimentos no.prazo.perfeito mas as vasilhas estão todas manchadas por dentro e não tem como.fica e lavando.pois o desenho de fora e adesivo de papel que não é descrito na pagina",
+          "en": "I bought a set of groceries in.prazo.perfect but the vases are all stained inside and there is no like.fica and washing.because the outside drawing and paper adhesive that is not described on the page",
           "words": [
-            "otimo"
-          ]
-        },
-        {
-          "review_id": "aa4e2507ae1ba7caa1c7e251c271bcaf",
-          "pt": "Pedir uma coisa é Véio foi outra. Não entendi.",
-          "en": "Asking for one thing is Veio was another.",
-          "words": [
-            "veio"
-          ]
-        },
-        {
-          "review_id": "b92894524c23bbe2f3fa88e335dcc3b6",
-          "pt": "Chegou muito rápido... Produto correto...\nSuper recomendo!!!",
-          "en": "It arrived very quickly... Produto correcto... Super recommendo!!!",
-          "words": [
-            "produto"
-          ]
-        },
-        {
-          "review_id": "89bd981c23ecd08b89ccdae35a3ea2f5",
-          "pt": "FOI ENTREGUE ANTES DO PRAZO,GOSTEI!!!!",
-          "en": "HE WAS SENT BEFORE THE TIME, GOSTEI!!!!",
-          "words": [
-            "gostei"
+            "prazo"
           ]
         },
         {
           "review_id": "e6e8bb27277ae45c9033819eabc8ee57",
           "pt": "SRS\nO Anuncio de uma capa de Couro,para o celular , NAO confere para o modelo anunciado\nAo se colocar o Celular , na CAPA , os BOTOES , o Microfone , ficam Bloquados ......e sem Acess",
-          "en": "SRS The announcement of a leather cover, for the mobile phone, NAO confers on the announced model By placing the Cell phone, on the CAPA, the BOTOES, the Microphone, are blocked ......and without Access",
+          "en": "SRS. The announcement of a leather cover, for the mobile phone, NAO confers on the advertised model. When you put the cell phone, on the capa, the buttons, the microphone, they're blocked... ...and no access.",
           "words": [
             "nao"
+          ]
+        },
+        {
+          "review_id": "55364e6856e976a5bf9989577a7e2963",
+          "pt": "Muito difícil a colocação , ficou cheio de bolhas, é opaco tira definição e brilho da tela.\nNÃO GOSTEI não recomendo.",
+          "en": "Very difficult to place, it was filled with bubbles, it is opaque strip definition and brightness of the screen. I do not recommend GOSTEI.",
+          "words": [
+            "gostei"
+          ]
+        },
+        {
+          "review_id": "f647a0b3144e89e47201bfb5f7aadb14",
+          "pt": "Ótima loija produto entregue dentro do prazo,Produto muito bom",
+          "en": "Great loja product delivered within the deadline,Very good product",
+          "words": [
+            "loja"
+          ]
+        },
+        {
+          "review_id": "493f5df8e9895a19644f302ceb1ffa07",
+          "pt": "Produto entregue dentro do prazo com preço acessível e boa qualidade. Parabéns Loja targaryen e lannister.com",
+          "en": "Product delivered within the deadline with affordable price and good quality. Congratulations Loja targaryen and Lannister.com",
+          "words": [
+            "loja"
           ]
         }
       ]

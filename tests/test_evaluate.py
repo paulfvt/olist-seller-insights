@@ -11,7 +11,13 @@ from olist_insights.evaluate import (
     summarize_cause_grades,
     summarize_translation_grades,
 )
-from olist_insights.translate import has_repetition_loop, is_probable_omission, split_sentences
+from olist_insights.translate import (
+    has_repetition_loop,
+    is_probable_omission,
+    is_untreated_caps,
+    join_pieces,
+    split_sentences,
+)
 
 
 def test_split_sentences():
@@ -27,6 +33,33 @@ def test_omission_detected_only_for_multi_sentence_texts():
     assert not is_probable_omission(pt, "Delivery time has not been met. Order's not here yet.")
     # une seule phrase : une traduction plus courte n'est pas une phrase perdue
     assert not is_probable_omission("Produto chegou em perfeitas condições e no prazo", "Fine.")
+    # phrase courte perdue (vue à la relecture) : longueur correcte mais une phrase en moins
+    pt2 = "Está apontando como entregue no rastreamento, mas o produto não foi recebido. Ainda estou no aguardo."
+    assert is_probable_omission(pt2, "It shows as delivered in the tracking, but the product wasn't received.")
+
+
+def test_join_pieces_keeps_sentence_count():
+    src = "produto bom\nótimo site, eu recomendo"
+    joined = join_pieces(["good product", "great site, I recommend"])
+    assert joined == "good product. great site, I recommend"
+    assert not is_probable_omission(src, joined)  # plus de faux positif à chaque passage
+    assert join_pieces(["Fast!", "Thanks"]) == "Fast! Thanks"  # ponctuation existante gardée
+
+
+def test_untreated_caps_selection_is_idempotent():
+    src = "NA MINHA OPINIÃO RECOMENDO O MEU PRODUTO FOI ENTREGUE ANTES DO PRASO"
+    assert is_untreated_caps(src, "IN MY OPINION I RECOMMENDED MY PRODUCT WAS DELIVERED BEFORE THE PRACE")
+    # une fois retraduit en casse de phrase : plus sélectionné (pas de retraduction sans fin)
+    assert not is_untreated_caps(src, "In my opinion I recommend my product was delivered before the deadline")
+    assert not is_untreated_caps("Produto OK, chegou rápido", "Product OK, arrived fast")  # sigle, pas un cri
+    # nom de vendeur anonymisé en minuscules au milieu d'un texte en majuscules
+    assert is_untreated_caps("GOSTO DE COMPRAR NA stark,", "I LIKE TO BUY IN THE STARK,.")
+
+
+def test_normalize_case_handles_anonymised_names():
+    from olist_insights.translate import normalize_case
+    assert normalize_case("GOSTO DE COMPRAR NA stark") == "Gosto de comprar na stark"
+    assert normalize_case("Produto OK") == "Produto OK"
 
 
 def test_punctuation_loop_is_a_loop():

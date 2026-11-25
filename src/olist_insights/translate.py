@@ -83,9 +83,53 @@ def split_sentences(text: str) -> list[str]:
     return [s.strip() for s in _SENTENCE_END.split(text) if s.strip()]
 
 
+def join_pieces(pieces: list[str]) -> str:
+    """Recolle des phrases traduites séparément.
+
+    Une phrase source sans ponctuation finale (« produto bom » sur sa propre ligne) donne
+    une traduction sans point, qui se collerait à la suivante (« good product great
+    site »). On ajoute un point aux morceaux qui n'en ont pas, sauf au dernier : la
+    lecture y gagne, et le nombre de phrases reste celui de la source (sinon le contrôle
+    d'omission signalerait ces textes à chaque passage, sans fin).
+    """
+    fixed = [p if i == len(pieces) - 1 or p.rstrip()[-1:] in ".!?…" else p.rstrip() + "."
+             for i, p in enumerate(pieces)]
+    return " ".join(fixed)
+
+
+def _is_shouting(sentence: str) -> bool:
+    """Phrase surtout en MAJUSCULES, même règle que normalize_case (sinon le tri des textes
+    à réparer et la réparation ne seraient pas d'accord, et on retraduirait sans fin)."""
+    return is_mostly_upper(sentence)
+
+
+def is_untreated_caps(source: str, translation: str) -> bool:
+    """Source avec une phrase en MAJUSCULES ET traduction encore en majuscules : traduite
+    avant la mise en casse de phrase (étape 6). Le critère porte aussi sur la TRADUCTION
+    pour rester idempotent : une fois retraduit, le texte sort en casse normale et n'est
+    plus sélectionné."""
+    return (any(_is_shouting(s) for s in split_sentences(source))
+            and any(_is_shouting(s) for s in split_sentences(translation)))
+
+
+def count_sentences(text: str) -> int:
+    return sum(1 for s in split_sentences(text) if has_letters(s))
+
+
 def is_probable_omission(source: str, translation: str) -> bool:
-    return (len(source) >= MIN_LEN_FOR_RATIO and len(split_sentences(source)) >= 2
-            and len(translation) / len(source) < OMISSION_RATIO)
+    """Texte de plusieurs phrases dont la traduction en a moins, ou est beaucoup trop courte.
+
+    Le critère du nombre de phrases a été ajouté après la relecture humaine de l'étape 6 :
+    une phrase courte perdue (« Ainda estou no aguardo. ») ne fait pas assez baisser la
+    longueur pour être vue par le seul critère du rapport de longueur. Il signale aussi
+    des fusions sans perte (« blanc. Et vert. » -> « blanc, et vert. ») : on accepte ces
+    faux positifs, les retraduire ne coûte que du temps.
+    """
+    n_source = count_sentences(source)
+    if n_source < 2:
+        return False
+    too_short = len(source) >= MIN_LEN_FOR_RATIO and len(translation) / len(source) < OMISSION_RATIO
+    return too_short or count_sentences(translation) < n_source
 
 
 def has_repetition_loop(text: str) -> bool:
@@ -99,10 +143,20 @@ def has_repetition_loop(text: str) -> bool:
     return bool(_LOOP.search(text) or _PUNCT_LOOP.search(text))
 
 
+def is_mostly_upper(text: str, min_letters: int = 8, share: float = 0.7) -> bool:
+    """Au moins 70 % des lettres en majuscules (et assez de lettres pour ne pas être un sigle).
+
+    Pas « 100 % » : les noms de vendeurs anonymisés par Olist sont en minuscules
+    (« GOSTO DE COMPRAR NA stark ») et feraient échouer un simple isupper().
+    """
+    letters = [ch for ch in text if ch.isalpha()]
+    return len(letters) >= min_letters and sum(ch.isupper() for ch in letters) / len(letters) >= share
+
+
 def normalize_case(text: str) -> str:
-    """Un texte entièrement en majuscules passe en casse de phrase (le modèle a vu peu de
+    """Un texte surtout en majuscules passe en casse de phrase (le modèle a vu peu de
     MAJUSCULES à l'entraînement, il les traduit mal). Les autres textes sont inchangés."""
-    return text.capitalize() if text.isupper() else text
+    return text.capitalize() if is_mostly_upper(text) else text
 
 
 # ---------------------------------------------------------------------------
@@ -167,6 +221,10 @@ class TranslationCache:
     def purge_omissions(self, model: str) -> int:
         """Supprime du cache les omissions probables, retraduites ensuite phrase par phrase."""
         return self._purge(model, is_probable_omission)
+
+    def purge_untreated_caps(self, model: str) -> int:
+        """Supprime du cache les textes en majuscules traduits sans mise en casse de phrase."""
+        return self._purge(model, is_untreated_caps)
 
     def _purge(self, model: str, is_bad: Callable[[str, str], bool]) -> int:
         rows = self.con.execute(
@@ -277,7 +335,9 @@ def load_marian_translator(model_name: str = DEFAULT_MODEL, num_beams: int = 4) 
         return tokenizer.batch_decode(outputs, skip_special_tokens=True)
 
     def translate_segments(segments: list[str]) -> list[str]:
-        outputs = generate(segments)
+        # Phrase en MAJUSCULES -> casse de phrase avant traduction : le modèle a vu très peu
+        # de majuscules à l'entraînement et y hallucine (étape 6 : « IN THE CHAIR: MR MARTIN »).
+        outputs = generate([normalize_case(s) for s in segments])
         # 5. Rattrapage des boucles d'hallucination (~0,1 % des avis). On ne retraduit que
         #    les textes fautifs (et seulement si le texte source ne boucle pas lui-même),
         #    en casse normale et avec no_repeat_ngram_size=3 : le décodeur a l'interdiction
@@ -299,7 +359,7 @@ def load_marian_translator(model_name: str = DEFAULT_MODEL, num_beams: int = 4) 
         pieces = [split_sentences(text) or [text] for text in batch]
         to_translate = [p for text_pieces in pieces for p in text_pieces if has_letters(p)]
         translated = iter(translate_segments(to_translate)) if to_translate else iter([])
-        return [" ".join(next(translated) if has_letters(p) else p for p in text_pieces)
+        return [join_pieces([next(translated) if has_letters(p) else p for p in text_pieces])
                 for text_pieces in pieces]
 
     return translate
@@ -359,6 +419,8 @@ def main(argv: list[str] | None = None) -> int:
                         help="supprime du cache les traductions qui bouclent, pour les retraduire")
     parser.add_argument("--repair-omissions", action="store_true",
                         help="supprime du cache les omissions probables, retraduites phrase par phrase")
+    parser.add_argument("--repair-caps", action="store_true",
+                        help="supprime du cache les textes en MAJUSCULES traduits sans mise en casse")
     args = parser.parse_args(argv)
 
     settings = load_settings()
@@ -379,6 +441,8 @@ def main(argv: list[str] | None = None) -> int:
             logger.info("Boucles de répétition retirées du cache : %d", cache.purge_loops(args.model))
         if args.repair_omissions:
             logger.info("Omissions probables retirées du cache : %d", cache.purge_omissions(args.model))
+        if args.repair_caps:
+            logger.info("Textes en majuscules retirés du cache : %d", cache.purge_untreated_caps(args.model))
         if cache.missing((text_hash(t) for t in texts if has_letters(t)), args.model):
             logger.info("Chargement du modèle %s", args.model)
             translator = load_marian_translator(args.model, args.num_beams)
