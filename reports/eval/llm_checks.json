@@ -1,0 +1,67 @@
+{
+  "groq/openai/gpt-oss-120b/v3": {
+    "n_sellers": 10,
+    "valid_at_generation_pct": 100.0,
+    "avg_attempts": 1.2,
+    "issues_of_invalid_answers": {},
+    "valid_answers_rechecked": 10,
+    "still_valid_on_recheck": 10,
+    "nothing_to_report": 1,
+    "avg_causes": 3.0,
+    "quotes_verified_pct": 100.0,
+    "kpis_verified_pct": 100.0
+  },
+  "groq/openai/gpt-oss-20b/v1": {
+    "n_sellers": 1,
+    "valid_at_generation_pct": 100.0,
+    "avg_attempts": 1.0,
+    "issues_of_invalid_answers": {},
+    "valid_answers_rechecked": 1,
+    "still_valid_on_recheck": 0,
+    "nothing_to_report": 0,
+    "avg_causes": 3.0,
+    "quotes_verified_pct": 100.0,
+    "kpis_verified_pct": 83.3
+  },
+  "groq/openai/gpt-oss-20b/v2": {
+    "n_sellers": 5,
+    "valid_at_generation_pct": 80.0,
+    "avg_attempts": 1.6,
+    "issues_of_invalid_answers": {
+      "schema": 2
+    },
+    "valid_answers_rechecked": 4,
+    "still_valid_on_recheck": 4,
+    "nothing_to_report": 0,
+    "avg_causes": 3.0,
+    "quotes_verified_pct": 100.0,
+    "kpis_verified_pct": 100.0
+  },
+  "groq/openai/gpt-oss-20b/v3": {
+    "n_sellers": 10,
+    "valid_at_generation_pct": 50.0,
+    "avg_attempts": 1.5,
+    "issues_of_invalid_answers": {
+      "json": 4,
+      "schema": 1
+    },
+    "valid_answers_rechecked": 5,
+    "still_valid_on_recheck": 5,
+    "nothing_to_report": 1,
+    "avg_causes": 3.0,
+    "quotes_verified_pct": 100.0,
+    "kpis_verified_pct": 100.0
+  },
+  "groq/qwen/qwen3.8-27b/v3": {
+    "n_sellers": 2,
+    "valid_at_generation_pct": 100.0,
+    "avg_attempts": 1.5,
+    "issues_of_invalid_answers": {},
+    "valid_answers_rechecked": 2,
+    "still_valid_on_recheck": 2,
+    "nothing_to_report": 0,
+    "avg_causes": 3.0,
+    "quotes_verified_pct": 100.0,
+    "kpis_verified_pct": 100.0
+  }
+}

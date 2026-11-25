@@ -1,0 +1,117 @@
+{
+  "n_reviews": 40641,
+  "n_translated_by_model": 40482,
+  "n_copied_no_letters": 159,
+  "n_missing": 0,
+  "flags": {
+    "loop": {
+      "count": 1,
+      "rate_pct": 0.0,
+      "examples": [
+        {
+          "review_id": "ee59823404cbc10fd1e06c1de4e4150e",
+          "pt": "Perfeitamente embalado. Sem amassou.",
+          "en": "Perfectly packed. No, no, no. No, you didn't."
+        }
+      ]
+    },
+    "omission": {
+      "count": 2,
+      "rate_pct": 0.0,
+      "examples": [
+        {
+          "review_id": "0ba1798954dc5c26810ef09daedc002c",
+          "pt": "MUITO OBRIGADO PELA SEMPRE GENTIL ATENÇÃO. PARABÉNS PELO EXCELENTE SERVIÇO PRESTADO À SOCIEDADE.JÁ SABIA DA EFICIÊNCIA E EFICÁCIA DO SITE, MAS NUNCA HAVIA UTILIZADO. ESTOU SATISFEITÍSSIMO.FELICIDADES",
+          "en": "A lot of attention for all the time. FOR THE EXCELLENT SERVICE PROVIDED FOR BY THE SOCIETY. I'M SATISFIED. HAPPY"
+        },
+        {
+          "review_id": "43907ef31db6241a26dc3d4f0d8ce445",
+          "pt": "ACHO QUE DEVERIA ACOMPANHAR UM MANUEL E CADERNO DE RECEITAS EM PORTUGUES,PORQUE AGENTE RECEBE O PRODUTO E TEM QUE PESQUISAR OU PEDIR RECEITAS DE CREPE.\nO MANUAL NÃO AJUDA NO CASO DE ALGUMA DIFICULDAD",
+          "en": "IN THE CHAIR: MR MARTIN Vice-President MANUAL DOES NOT HELP IN THE CASE OF SOME DIFFICULTY"
+        }
+      ]
+    },
+    "long": {
+      "count": 12,
+      "rate_pct": 0.03,
+      "examples": [
+        {
+          "review_id": "24eaeb02363f796f3eb2cd62f30ee8e5",
+          "pt": "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+          "en": "mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        },
+        {
+          "review_id": "c21b08810349606fcf18eeb21c365545",
+          "pt": "Ótimo msnsksknsjsjsjsnsjsjsjsnsjsjsndnndjxjxndndjsjdjdjdjdjjdjdjdjsjsjdjdjdjdjdjsjdjdjjdjdjdjdjdjsjsjdjsksjsjjssnjsjsjsjsjsjsjsjjskskskskskskkskskskskskskskskskksksksnwksksksksnnsjsjsjsjsjnsnsjsjsjsns",
+          "en": "Great msnsksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksksks"
+        },
+        {
+          "review_id": "436e9da2a75eb6d50db3cac5037a81a6",
+          "pt": "O produto não foi entregue completamente faltou o principal mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm",
+          "en": "The product was not delivered completely missing the main mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+        },
+        {
+          "review_id": "62a42ef935ddf6718e753eea6308eae7",
+          "pt": "Adoreiiiiiiiiiiiiiiiii. Tudo perfeito.",
+          "en": "I'm in love with you, I'm in love with you, I'm in love with you, I'm in love with you, I'm in love with you, I'm in love with you."
+        },
+        {
+          "review_id": "6d81726f30f903095cdc61098cbb1997",
+          "pt": "PARAMBELISO TODA EQUIPE PELO BOM TRABALHO, E PONTUDALIDADE.\nMEUS PARABÉNS, COM O MEU ABRAÇO A TODOS.\nJOSÉ CARNEIRO BH MG.",
+          "en": "I've got all the equipment for good work, and pontudality, and I've got all the equipment I need, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and I've got all the equipment, and"
+        }
+      ]
+    },
+    "pt_leftover": {
+      "count": 47,
+      "rate_pct": 0.12,
+      "examples": [
+        {
+          "review_id": "848d5324b9cb5aa4cc0f6f357863c9eb",
+          "pt": "Otimo deu tudo certinho\nnota 10.",
+          "en": "Otimo gave all the right grade 10.",
+          "words": [
+            "otimo"
+          ]
+        },
+        {
+          "review_id": "aa4e2507ae1ba7caa1c7e251c271bcaf",
+          "pt": "Pedir uma coisa é Véio foi outra. Não entendi.",
+          "en": "Asking for one thing is Veio was another.",
+          "words": [
+            "veio"
+          ]
+        },
+        {
+          "review_id": "b92894524c23bbe2f3fa88e335dcc3b6",
+          "pt": "Chegou muito rápido... Produto correto...\nSuper recomendo!!!",
+          "en": "It arrived very quickly... Produto correcto... Super recommendo!!!",
+          "words": [
+            "produto"
+          ]
+        },
+        {
+          "review_id": "89bd981c23ecd08b89ccdae35a3ea2f5",
+          "pt": "FOI ENTREGUE ANTES DO PRAZO,GOSTEI!!!!",
+          "en": "HE WAS SENT BEFORE THE TIME, GOSTEI!!!!",
+          "words": [
+            "gostei"
+          ]
+        },
+        {
+          "review_id": "e6e8bb27277ae45c9033819eabc8ee57",
+          "pt": "SRS\nO Anuncio de uma capa de Couro,para o celular , NAO confere para o modelo anunciado\nAo se colocar o Celular , na CAPA , os BOTOES , o Microfone , ficam Bloquados ......e sem Acess",
+          "en": "SRS The announcement of a leather cover, for the mobile phone, NAO confers on the announced model By placing the Cell phone, on the CAPA, the BOTOES, the Microphone, are blocked ......and without Access",
+          "words": [
+            "nao"
+          ]
+        }
+      ]
+    }
+  },
+  "notes": {
+    "omission": "texte d'au moins 2 phrases et 30 caractères, len(EN)/len(PT) < 0.6",
+    "long": "len(EN)/len(PT) > 2.0",
+    "pt_leftover": "mot portugais fréquent resté dans la traduction"
+  }
+}

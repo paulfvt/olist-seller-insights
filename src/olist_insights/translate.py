@@ -64,8 +64,28 @@ def has_letters(text: str) -> bool:
 
 
 # Une boucle = un même groupe de 1 à 3 mots répété au moins 4 fois d'affilée
-# ("no, no, no, no", "all right, all right, all right, all right").
+# ("no, no, no, no", "all right, all right, all right, all right"),
+# ou une suite de ponctuation isolée (". . . . . .", repérée à l'étape 6).
 _LOOP = re.compile(r"\b(\w+(?:\W+\w+){0,2}?)(?:\W+\1\b){3,}", re.IGNORECASE)
+_PUNCT_LOOP = re.compile(r"(?:[.•·,]\s+){6,}")
+
+# Découpage en phrases : après . ! ? suivis d'un espace, ou à chaque retour à la ligne.
+_SENTENCE_END = re.compile(r"(?<=[.!?])\s+|\n+")
+
+# Omission probable (défaut repéré à l'étape 6) : un texte de plusieurs phrases dont la
+# traduction fait moins de 60 % de la longueur. MarianMT a tendance à ne traduire que la
+# première phrase d'une entrée qui en contient plusieurs.
+MIN_LEN_FOR_RATIO = 30
+OMISSION_RATIO = 0.6
+
+
+def split_sentences(text: str) -> list[str]:
+    return [s.strip() for s in _SENTENCE_END.split(text) if s.strip()]
+
+
+def is_probable_omission(source: str, translation: str) -> bool:
+    return (len(source) >= MIN_LEN_FOR_RATIO and len(split_sentences(source)) >= 2
+            and len(translation) / len(source) < OMISSION_RATIO)
 
 
 def has_repetition_loop(text: str) -> bool:
@@ -76,7 +96,7 @@ def has_repetition_loop(text: str) -> bool:
     sur un motif qu'il vient de produire et ne plus en sortir : la répétition devient
     la suite la plus probable d'elle-même.
     """
-    return bool(_LOOP.search(text))
+    return bool(_LOOP.search(text) or _PUNCT_LOOP.search(text))
 
 
 def normalize_case(text: str) -> str:
@@ -142,10 +162,17 @@ class TranslationCache:
         Elles seront retraduites au prochain passage, avec le rattrapage de
         load_marian_translator. Retourne le nombre d'entrées supprimées.
         """
+        return self._purge(model, lambda src, out: has_repetition_loop(out) and not has_repetition_loop(src))
+
+    def purge_omissions(self, model: str) -> int:
+        """Supprime du cache les omissions probables, retraduites ensuite phrase par phrase."""
+        return self._purge(model, is_probable_omission)
+
+    def _purge(self, model: str, is_bad: Callable[[str, str], bool]) -> int:
         rows = self.con.execute(
             "SELECT text_hash, source_text, translated_text FROM translations WHERE model = ?", [model]
         ).fetchall()
-        bad = [h for h, src, out in rows if has_repetition_loop(out) and not has_repetition_loop(src)]
+        bad = [h for h, src, out in rows if is_bad(src, out)]
         if bad:
             self.con.execute(
                 "DELETE FROM translations WHERE model = ? AND text_hash IN (SELECT unnest(?))", [model, bad]
@@ -249,20 +276,31 @@ def load_marian_translator(model_name: str = DEFAULT_MODEL, num_beams: int = 4) 
         # 4. Détokenisation : identifiants -> texte, sans les tokens spéciaux (<pad>, </s>).
         return tokenizer.batch_decode(outputs, skip_special_tokens=True)
 
-    def translate(batch: list[str]) -> list[str]:
-        outputs = generate(batch)
+    def translate_segments(segments: list[str]) -> list[str]:
+        outputs = generate(segments)
         # 5. Rattrapage des boucles d'hallucination (~0,1 % des avis). On ne retraduit que
         #    les textes fautifs (et seulement si le texte source ne boucle pas lui-même),
         #    en casse normale et avec no_repeat_ngram_size=3 : le décodeur a l'interdiction
         #    de produire deux fois la même suite de 3 tokens. Pas appliqué à tout le monde,
         #    car cela empêcherait aussi les répétitions légitimes de l'original.
-        bad = [i for i, (src, out) in enumerate(zip(batch, outputs))
+        bad = [i for i, (src, out) in enumerate(zip(segments, outputs))
                if has_repetition_loop(out) and not has_repetition_loop(src)]
         if bad:
-            retried = generate([normalize_case(batch[i]) for i in bad], no_repeat_ngram_size=3)
+            retried = generate([normalize_case(segments[i]) for i in bad], no_repeat_ngram_size=3)
             for i, out in zip(bad, retried):
                 outputs[i] = out
         return outputs
+
+    def translate(batch: list[str]) -> list[str]:
+        # 6. Phrase par phrase : avec plusieurs phrases en entrée, MarianMT ne traduit
+        #    parfois que la première et ignore le reste (« omission », étape 6). On découpe
+        #    chaque texte en phrases, on les traduit toutes dans un seul lot, puis on
+        #    recolle. Les morceaux sans lettre (emoji) sont gardés tels quels.
+        pieces = [split_sentences(text) or [text] for text in batch]
+        to_translate = [p for text_pieces in pieces for p in text_pieces if has_letters(p)]
+        translated = iter(translate_segments(to_translate)) if to_translate else iter([])
+        return [" ".join(next(translated) if has_letters(p) else p for p in text_pieces)
+                for text_pieces in pieces]
 
     return translate
 
@@ -319,6 +357,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--model", default=DEFAULT_MODEL)
     parser.add_argument("--repair-loops", action="store_true",
                         help="supprime du cache les traductions qui bouclent, pour les retraduire")
+    parser.add_argument("--repair-omissions", action="store_true",
+                        help="supprime du cache les omissions probables, retraduites phrase par phrase")
     args = parser.parse_args(argv)
 
     settings = load_settings()
@@ -337,6 +377,8 @@ def main(argv: list[str] | None = None) -> int:
     try:
         if args.repair_loops:
             logger.info("Boucles de répétition retirées du cache : %d", cache.purge_loops(args.model))
+        if args.repair_omissions:
+            logger.info("Omissions probables retirées du cache : %d", cache.purge_omissions(args.model))
         if cache.missing((text_hash(t) for t in texts if has_letters(t)), args.model):
             logger.info("Chargement du modèle %s", args.model)
             translator = load_marian_translator(args.model, args.num_beams)

@@ -171,3 +171,6 @@ def test_real_marian_model_translates_portuguese():
     first, second = (o.lower() for o in out)
     assert "product" in first and ("receive" in first or "get" in first)
     assert "good" in second
+    # omission repérée à l'étape 6 : la 2e phrase était perdue avant la traduction phrase par phrase
+    (multi,) = translate(["Prazo de entrega não foi cumprido. Encomenda ainda não chegou."])
+    assert "order" in multi.lower() or "package" in multi.lower()
