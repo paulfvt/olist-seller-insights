@@ -1,0 +1,177 @@
+{
+  "target": {
+    "lookback_days": 90,
+    "horizon_days": 90,
+    "min_past_reviews": 5,
+    "min_future_reviews": 5,
+    "bad_threshold": 0.25
+  },
+  "splits": {
+    "train": [
+      "2017-03",
+      "2017-09"
+    ],
+    "valid": [
+      "2017-12",
+      "2018-01"
+    ],
+    "test": [
+      "2018-04",
+      "2018-06"
+    ]
+  },
+  "selection_on_valid": {
+    "logreg_C0.05": {
+      "n": 839,
+      "prevalence": 0.2193,
+      "pr_auc": 0.3292,
+      "pr_auc_lift": 1.5,
+      "roc_auc": 0.6376,
+      "precision_top10": 0.4011,
+      "recall_top10": 0.1836,
+      "brier": 0.2192
+    },
+    "logreg_C0.3": {
+      "n": 839,
+      "prevalence": 0.2193,
+      "pr_auc": 0.3099,
+      "pr_auc_lift": 1.41,
+      "roc_auc": 0.6224,
+      "precision_top10": 0.3545,
+      "recall_top10": 0.1633,
+      "brier": 0.2259
+    },
+    "logreg_C1.0": {
+      "n": 839,
+      "prevalence": 0.2193,
+      "pr_auc": 0.306,
+      "pr_auc_lift": 1.4,
+      "roc_auc": 0.6193,
+      "precision_top10": 0.3307,
+      "recall_top10": 0.1519,
+      "brier": 0.2312
+    },
+    "hgb_d3_lr0.05": {
+      "n": 839,
+      "prevalence": 0.2193,
+      "pr_auc": 0.3161,
+      "pr_auc_lift": 1.44,
+      "roc_auc": 0.6161,
+      "precision_top10": 0.4011,
+      "recall_top10": 0.1836,
+      "brier": 0.2099
+    },
+    "hgb_d5_lr0.05": {
+      "n": 839,
+      "prevalence": 0.2193,
+      "pr_auc": 0.2999,
+      "pr_auc_lift": 1.37,
+      "roc_auc": 0.5998,
+      "precision_top10": 0.3989,
+      "recall_top10": 0.1789,
+      "brier": 0.2001
+    },
+    "hgb_d3_lr0.1": {
+      "n": 839,
+      "prevalence": 0.2193,
+      "pr_auc": 0.3069,
+      "pr_auc_lift": 1.4,
+      "roc_auc": 0.6045,
+      "precision_top10": 0.3534,
+      "recall_top10": 0.1609,
+      "brier": 0.2035
+    },
+    "rule_persistence": {
+      "n": 839,
+      "prevalence": 0.2193,
+      "pr_auc": 0.3259,
+      "pr_auc_lift": 1.49,
+      "roc_auc": 0.6112,
+      "precision_top10": 0.3648,
+      "recall_top10": 0.1654
+    }
+  },
+  "selected_model": "logreg_C0.05",
+  "backtest_before_test": {
+    "rule_persistence": 0.2691,
+    "logreg_C0.05": 0.2856
+  },
+  "test": {
+    "constant_prior": {
+      "all": {
+        "n": 1516,
+        "prevalence": 0.1187,
+        "pr_auc": 0.1187,
+        "pr_auc_lift": 1.0,
+        "roc_auc": 0.5,
+        "precision_top10": 0.125,
+        "recall_top10": 0.1035,
+        "brier": 0.1054
+      },
+      "previously_ok": {
+        "n": 1173,
+        "prevalence": 0.0835,
+        "pr_auc": 0.0835,
+        "pr_auc_lift": 1.0,
+        "roc_auc": 0.5,
+        "precision_top10": 0.0945,
+        "recall_top10": 0.1072,
+        "brier": 0.0804
+      }
+    },
+    "rule_persistence": {
+      "all": {
+        "n": 1516,
+        "prevalence": 0.1187,
+        "pr_auc": 0.2611,
+        "pr_auc_lift": 2.2,
+        "roc_auc": 0.646,
+        "precision_top10": 0.3285,
+        "recall_top10": 0.2775
+      },
+      "previously_ok": {
+        "n": 1173,
+        "prevalence": 0.0835,
+        "pr_auc": 0.0929,
+        "pr_auc_lift": 1.11,
+        "roc_auc": 0.5125,
+        "precision_top10": 0.0776,
+        "recall_top10": 0.0863
+      }
+    },
+    "logreg_C0.05": {
+      "all": {
+        "n": 1516,
+        "prevalence": 0.1187,
+        "pr_auc": 0.2357,
+        "pr_auc_lift": 1.98,
+        "roc_auc": 0.6595,
+        "precision_top10": 0.2363,
+        "recall_top10": 0.1938,
+        "brier": 0.3235
+      },
+      "previously_ok": {
+        "n": 1173,
+        "prevalence": 0.0835,
+        "pr_auc": 0.1355,
+        "pr_auc_lift": 1.62,
+        "roc_auc": 0.6171,
+        "precision_top10": 0.1377,
+        "recall_top10": 0.1556,
+        "brier": 0.2951
+      }
+    }
+  },
+  "permutation_importance_valid": {
+    "late_handoff_rate_90d": 0.0461,
+    "avg_delivery_days_90d": 0.0174,
+    "revenue_90d": 0.0158,
+    "low_rate_hist": 0.0144,
+    "avg_rating_hist": 0.0103,
+    "seniority_days": 0.0096,
+    "text_rate_90d": 0.0078,
+    "n_categories_hist": 0.0044,
+    "n_orders_30d": 0.0042,
+    "low_rate_90d": 0.0039
+  }
+}

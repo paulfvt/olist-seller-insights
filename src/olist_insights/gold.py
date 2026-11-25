@@ -97,8 +97,10 @@ def build_seller_kpis(con: duckdb.DuckDBPyConnection) -> None:
             GROUP BY seller_id
         ),
         main_category AS (
-            -- catégorie qui regroupe le plus d'articles vendus (arg_max sur le comptage)
-            SELECT seller_id, arg_max(category_en, n) AS main_category, count(*) AS n_categories
+            -- catégorie qui regroupe le plus d'articles vendus ; égalité -> ordre alphabétique
+            -- (arg_max départagerait au hasard : résultat non reproductible)
+            SELECT seller_id, first(category_en ORDER BY n DESC, category_en) AS main_category,
+                   count(*) AS n_categories
             FROM (
                 SELECT i.seller_id, p.category_en, count(*) AS n
                 FROM silver.order_items i JOIN silver.products p USING (product_id)
