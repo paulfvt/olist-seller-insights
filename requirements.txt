@@ -22,5 +22,9 @@ sacremoses==0.2.0
 scikit-learn==1.9.1
 joblib==1.6.0
 
+# LLM (appels HTTP compatibles OpenAI + validation du JSON de sortie)
+httpx==0.28.1
+pydantic==2.14.4
+
 # Tests
 pytest==9.2.0
