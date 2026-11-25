@@ -5,9 +5,21 @@
     "avg_attempts": 1.2,
     "issues_of_invalid_answers": {},
     "valid_answers_rechecked": 10,
-    "still_valid_on_recheck": 10,
+    "still_valid_on_recheck": 3,
     "nothing_to_report": 1,
     "avg_causes": 3.22,
+    "quotes_verified_pct": 100.0,
+    "kpis_verified_pct": 100.0
+  },
+  "groq/openai/gpt-oss-120b/v4": {
+    "n_sellers": 10,
+    "valid_at_generation_pct": 100.0,
+    "avg_attempts": 1.4,
+    "issues_of_invalid_answers": {},
+    "valid_answers_rechecked": 10,
+    "still_valid_on_recheck": 10,
+    "nothing_to_report": 1,
+    "avg_causes": 2.78,
     "quotes_verified_pct": 100.0,
     "kpis_verified_pct": 100.0
   },
@@ -31,7 +43,7 @@
       "schema": 2
     },
     "valid_answers_rechecked": 4,
-    "still_valid_on_recheck": 3,
+    "still_valid_on_recheck": 2,
     "nothing_to_report": 0,
     "avg_causes": 3.0,
     "quotes_verified_pct": 91.7,
@@ -46,7 +58,7 @@
       "schema": 1
     },
     "valid_answers_rechecked": 5,
-    "still_valid_on_recheck": 5,
+    "still_valid_on_recheck": 2,
     "nothing_to_report": 1,
     "avg_causes": 3.0,
     "quotes_verified_pct": 100.0,

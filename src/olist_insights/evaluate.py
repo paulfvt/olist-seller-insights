@@ -372,6 +372,9 @@ def main(argv: list[str] | None = None) -> int:
             "grader": args.grader,
             "translation": summarize_translation_grades(_read_csv(sample_path)) if sample_path.exists() else None,
             "llm_causes": summarize_cause_grades(_read_csv(causes_path)) if causes_path.exists() else None,
+            # grilles des versions de prompt précédentes, gardées pour comparer avant / après
+            "llm_causes_previous": {p.stem.rsplit("_", 1)[1]: summarize_cause_grades(_read_csv(p))
+                                    for p in sorted(EVAL_DIR.glob("llm_human_review_v*.csv"))},
         }
         _write_json(EVAL_DIR / "human_scores.json", scores)
         logger.info("Scores humains : %s", json.dumps(scores, ensure_ascii=False))

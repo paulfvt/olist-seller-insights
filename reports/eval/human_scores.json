@@ -15,11 +15,21 @@
     }
   },
   "llm_causes": {
-    "supported_by_reviews_pct": 93.1,
-    "supported_by_reviews_n": 29,
-    "is_cause_not_symptom_pct": 62.1,
-    "is_cause_not_symptom_n": 29,
-    "actionable_pct": 62.1,
-    "actionable_n": 29
+    "supported_by_reviews_pct": 96.0,
+    "supported_by_reviews_n": 25,
+    "is_cause_not_symptom_pct": 100.0,
+    "is_cause_not_symptom_n": 25,
+    "actionable_pct": 100.0,
+    "actionable_n": 25
+  },
+  "llm_causes_previous": {
+    "v3": {
+      "supported_by_reviews_pct": 93.1,
+      "supported_by_reviews_n": 29,
+      "is_cause_not_symptom_pct": 62.1,
+      "is_cause_not_symptom_n": 29,
+      "actionable_pct": 62.1,
+      "actionable_n": 29
+    }
   }
 }

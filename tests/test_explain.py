@@ -6,7 +6,13 @@ import pytest
 
 from olist_insights import explain
 from olist_insights.config import load_settings
-from olist_insights.explain import SellerContext, explain_seller, numbers_in_text, validate_explanation
+from olist_insights.explain import (
+    SellerContext,
+    explain_seller,
+    is_symptom_title,
+    numbers_in_text,
+    validate_explanation,
+)
 from olist_insights.llm_client import LLMOutputError
 
 CTX = SellerContext(
@@ -64,6 +70,7 @@ def test_valid_explanation_passes():
     # chiffre exact mais conclusion fausse : la note 3.5 n'est pas pire qu'une marketplace à 3.0
     (_with(causes__0__supporting_kpis=[{"kpi_name": "avg_rating", "value": 3.5}]), "n'est pas pire"),
     (_with(causes__0__supporting_kpis=[{"kpi_name": "risk_score_pct", "value": 90.0}]), "pas une preuve"),
+    (_with(causes__0__title="High proportion of low ratings"), "le symptôme"),        # symptôme (v4)
 ])
 def test_invalid_explanations_are_caught(data, expected):
     _, issues = validate_explanation(data, CTX)
@@ -82,6 +89,24 @@ def test_no_cause_rejected_when_a_kpi_is_worse():
 def test_no_cause_accepted_when_seller_beats_marketplace():
     good = SellerContext("s2", {"late_delivery_rate_pct": 2.0, "marketplace_late_delivery_rate_pct": 6.7}, CTX.reviews)
     assert validate_explanation(NOTHING_TO_REPORT, good)[1] == []
+
+
+@pytest.mark.parametrize("title, expected", [
+    # titres relevés à l'étape 6 (notés « symptôme »)
+    ("High proportion of low ratings", True),
+    ("Below‑average overall rating", True),   # tiret insécable produit par le LLM
+    ("High low‑rating rate", True),
+    # formulations jamais vues, pour ne pas juger le détecteur sur ses seuls exemples d'origine
+    ("Poor customer review scores", True),
+    ("Many negative reviews", True),
+    # vraies causes, même quand elles parlent aussi de la note
+    ("Product authenticity and mismatch problems driving low ratings", False),
+    ("Damaged products", False),
+    ("No answer from the seller", False),
+    ("High late delivery rate", False),
+])
+def test_is_symptom_title(title, expected):
+    assert is_symptom_title(title) is expected
 
 
 def test_quote_matching_ignores_case_and_spacing():

@@ -35,7 +35,7 @@ from olist_insights.logging_utils import setup_logging
 
 logger = logging.getLogger(__name__)
 
-PROMPT_VERSION = "v3"  # à incrémenter à chaque changement de consigne (le cache en dépend)
+PROMPT_VERSION = "v4"  # à incrémenter à chaque changement de consigne (le cache en dépend)
 
 # KPI du vendeur -> (KPI de référence marketplace, True si « plus haut = pire »).
 # Un KPI ne peut appuyer une cause que s'il est PIRE que la marketplace : un chiffre exact
@@ -213,7 +213,8 @@ worse than its marketplace value (higher for rates, lower for ratings); cite bot
 risk_score_pct is a model prediction, not evidence: never cite it in supporting_kpis.
 6. If no KPI is worse than the marketplace, return empty "causes" and "improvements" lists and \
 say in the summary that the data does not confirm a satisfaction problem.
-7. Answer with a single JSON object, no text around it, with this structure:
+7. Ratings (avg_rating, low_rating_rate_pct and their last_90d versions) measure the dissatisfaction you must explain: a low rating is the symptom, never the cause. Each cause title must name a concrete problem described in the reviews (e.g. late delivery, damaged or wrong product, counterfeit, missing item, no answer from the seller, refund not received). Rating KPIs may still be cited as supporting_kpis of such a concrete cause.
+8. Answer with a single JSON object, no text around it, with this structure:
 {"summary": str,
  "causes": [{"title": str, "explanation": str,
              "supporting_kpis": [{"kpi_name": str, "value": number}],
@@ -264,6 +265,23 @@ def worse_than_marketplace(facts: dict[str, float]) -> list[str]:
     return worse
 
 
+# Titre de cause qui ne parle que de la note (« High proportion of low ratings ») : c'est le
+# symptôme à expliquer, pas une cause. On ne peut pas juger par les KPI cités (une vraie cause
+# « produit contrefait » n'a pas de KPI dédié et cite aussi avg_rating) : on regarde donc si le
+# titre contient autre chose que des mots de note et des mots de remplissage.
+_RATING_WORDS = {"rating", "ratings", "score", "scores", "star", "stars", "satisfaction",
+                 "dissatisfaction", "review", "reviews"}
+_FILLER_WORDS = {"high", "higher", "low", "lower", "proportion", "share", "overall", "average",
+                 "below", "above", "marketplace", "rate", "than", "the", "of", "a", "an", "and",
+                 "reflecting", "severe", "poor", "many", "frequent", "negative", "customer",
+                 "customers", "bad", "very", "level", "number", "seller", "s"}
+
+
+def is_symptom_title(title: str) -> bool:
+    words = set(re.findall(r"[a-z]+", title.lower()))
+    return bool(words & _RATING_WORDS) and words <= _RATING_WORDS | _FILLER_WORDS
+
+
 def validate_explanation(data: dict, ctx: SellerContext) -> tuple[Explanation | None, list[str]]:
     """Retourne (explication validée par le schéma, liste des problèmes). Liste vide = valide."""
     try:
@@ -297,6 +315,9 @@ def validate_explanation(data: dict, ctx: SellerContext) -> tuple[Explanation | 
                 issues.append(f"cause {i} : la citation de {ref.review_ref} n'apparaît pas dans l'avis")
         if not cause.supporting_kpis:
             issues.append(f"cause {i} : aucun KPI cité")
+        if is_symptom_title(cause.title):
+            issues.append(f"cause {i} : « {cause.title} » décrit la note (le symptôme), "
+                          "pas un problème concret tiré des avis")
     if not expl.causes:
         # « rien à signaler » n'est acceptable que si aucun KPI n'est effectivement pire
         if worse := worse_than_marketplace(ctx.facts):
